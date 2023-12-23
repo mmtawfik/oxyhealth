@@ -1,51 +1,61 @@
-# Copyright (c) Streamlit Inc. (2018-2022) Snowflake Inc. (2022)
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
 import streamlit as st
-from streamlit.logger import get_logger
+import numpy as np
+from PIL import Image, ImageDraw, ImageFont
+from io import BytesIO
+import datetime
+import tempfile
+from pathlib import Path
+import os
+from fpdf import FPDF
 
-LOGGER = get_logger(__name__)
-
-
-def run():
-    st.set_page_config(
-        page_title="Hello",
-        page_icon="👋",
-    )
-
-    st.write("# Welcome to Streamlit! 👋")
-
-    st.sidebar.success("Select a demo above.")
-
-    st.markdown(
-        """
-        Streamlit is an open-source app framework built specifically for
-        Machine Learning and Data Science projects.
-        **👈 Select a demo from the sidebar** to see some examples
-        of what Streamlit can do!
-        ### Want to learn more?
-        - Check out [streamlit.io](https://streamlit.io)
-        - Jump into our [documentation](https://docs.streamlit.io)
-        - Ask a question in our [community
-          forums](https://discuss.streamlit.io)
-        ### See more complex demos
-        - Use a neural net to [analyze the Udacity Self-driving Car Image
-          Dataset](https://github.com/streamlit/demo-self-driving)
-        - Explore a [New York City rideshare dataset](https://github.com/streamlit/demo-uber-nyc-pickups)
-    """
-    )
+def create_prescription(patient_name, date, day, birthday, prescription):
+    image_path = 'prescription.png' # Replace this with the actual path to your prescription.png file
+    image = Image.open(image_path)
+    image = image.convert("RGB") # Convert image to RGB mode
+    draw = ImageDraw.Draw(image)
+    font = ImageFont.truetype("Arial.ttf", 28)
 
 
-if __name__ == "__main__":
-    run()
+    draw.text((220, 395), patient_name, (0, 0, 0), font=font)
+    draw.text((745, 395), date, (0, 0, 0), font=font)
+    draw.text((300, 455), birthday, (0, 0, 0), font=font)
+    draw.text((120, 520), prescription, (0, 0, 0), font=font)
+
+    image.save('prescription.jpg', format='JPEG') # Save as JPEG format
+    st.image(image, caption='Prescription', use_column_width=True)
+
+    # Convert the image to a PDF file
+    create_pdf('prescription.jpg', patient_name + '.pdf')
+
+def display_image(image_data):
+    image = Image.open(BytesIO(image_data))
+    st.image(image, caption='Input Image', use_column_width=True)
+
+def create_pdf(image_file, pdf_file):
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_font("Arial", size=12)
+
+    pdf.image(image_file, x=0, y=0, w=210)
+    pdf.output(pdf_file)
+
+def create_app():
+    st.title('Create Prescription App')
+    st.markdown("This app helps you create a prescription by filling in the details.")
+
+    patient_name = st.text_input("Patient Name", "")
+    prescription_date = datetime.date.today().strftime("%d-%m-%Y")
+    day = datetime.datetime.today().strftime("%A")
+    birthday = st.date_input("Patient's Birthday", datetime.date(1980, 7, 6))
+    prescription = st.text_area("Prescription")
+
+    submit = st.button("Create Prescription")
+
+    if submit:
+        create_prescription(patient_name, prescription_date, day, str(birthday), prescription)
+        pdf_file = patient_name + '.pdf'
+        if os.path.exists(pdf_file):
+            st.download_button(label="Download Prescription", data=open(pdf_file, 'rb'), file_name=pdf_file, mime='application/pdf')
+        
+if __name__ == '__main__':
+    create_app()

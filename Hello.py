@@ -6,12 +6,12 @@ import io
 import streamlit as st
 import fpdf
 
-def hash_password(password):
-    salt = os.urandom(32)
-    key = hashlib.pbkdf2_hmac('sha256', password.encode('utf-8'), salt, 100000)
-    return (salt + key).hex()
+# def hash_password(password):
+#     salt = os.urandom(32)
+#     key = hashlib.pbkdf2_hmac('sha256', password.encode('utf-8'), salt, 100000)
+#     return (salt + key).hex()
 
-hashed_password = hash_password('fc5e038d38a57032085441e7fe7010b0')
+hashed_password = hash_password('Engy')
 
 username = st.text_input("Username", "")
 password = st.text_input("Password", type='password')

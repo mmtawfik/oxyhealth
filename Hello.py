@@ -1,21 +1,16 @@
-import streamlit as st
-import numpy as np
-from PIL import Image, ImageDraw, ImageFont
-from io import BytesIO
-import datetime
-import tempfile
-from pathlib import Path
-import os
-from fpdf import FPDF
 import hashlib
-
+import os
+from datetime import datetime
+from PIL import Image, ImageDraw, ImageFont
+import io
+import streamlit as st
+import fpdf
 
 def hash_password(password):
     salt = os.urandom(32)
     key = hashlib.pbkdf2_hmac('sha256', password.encode('utf-8'), salt, 100000)
     return (salt + key).hex()
 
-# Hash the password using the above function
 hashed_password = hash_password('50495049')
 
 username = st.text_input("Username", "")
@@ -82,5 +77,5 @@ if user_logged_in:
             if os.path.exists(pdf_file):
                 st.download_button(label="Download Prescription", data=open(pdf_file, 'rb'), file_name=pdf_file, mime='application/pdf')
             
-    if __name__ == '__main__':
+    if __name__ == '__main__:
         create_app()

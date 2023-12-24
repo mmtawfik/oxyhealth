@@ -4,4 +4,4 @@ pandas
 pydeck
 streamlit
 fpdf 
-SessionState
+session-state

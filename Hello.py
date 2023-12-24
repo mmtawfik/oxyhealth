@@ -21,7 +21,7 @@ password = st.text_input("Password", type='password')
 
 
 if st.button("Login"):
-    if username == 'drengyoxyhealth' and password == hashed_password:
+    if username == 'drengyoxyhealth' and password == 'drengyoxyhealth':
             # Run your app's main functionality here
             st.write("Welcome, you are logged in!")
             

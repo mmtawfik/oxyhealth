@@ -77,5 +77,5 @@ if user_logged_in:
             if os.path.exists(pdf_file):
                 st.download_button(label="Download Prescription", data=open(pdf_file, 'rb'), file_name=pdf_file, mime='application/pdf')
             
-    if __name__ == '__main__:
+    if __name__ == '__main__':
         create_app()

@@ -7,7 +7,6 @@ import tempfile
 from pathlib import Path
 import os
 from fpdf import FPDF
-import session-state
 
 
 def login_form():

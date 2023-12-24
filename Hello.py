@@ -7,27 +7,7 @@ import tempfile
 from pathlib import Path
 import os
 from fpdf import FPDF
-from streamlit.session_state import SessionState
 
-
-def login_form():
-    session_state = SessionState.get(user="", authenticated=False)
-
-    if session_state.authenticated:
-        return
-
-    st.title('Login Form')
-    username = st.text_input("Username", "")
-    password = st.text_input("Password", type='password')
-    login = st.button("Login")
-
-    if login:
-        if username == 'your_username' and password == 'your_password':
-            session_state.user = username
-            session_state.authenticated = True
-        else:
-            st.error("Incorrect username or password.")
-            
 def create_prescription(patient_name, date, day, birthday, prescription):
     image_path = 'prescription.png' # Replace this with the actual path to your prescription.png file
     image = Image.open(image_path)
@@ -62,15 +42,6 @@ def create_pdf(image_file, pdf_file):
 def create_app():
     st.title('Create Prescription App')
     st.markdown("This app helps you create a prescription by filling in the details.")
-    session_state = SessionState.get(user="", authenticated=False)
-
-    if not session_state.authenticated:
-        login_form()
-
-    if session_state.authenticated:
-        st.title('Create Prescription App')
-        st.markdown("This app helps you create a prescription by filling in the details.")
-
 
     patient_name = st.text_input("Patient Name", "")
     prescription_date = datetime.date.today().strftime("%d-%m-%Y")

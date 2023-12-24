@@ -44,9 +44,9 @@ def create_app():
     st.title('Create Prescription App')
     st.markdown("This app helps you create a prescription by filling in the details.")
         password = password_input("Enter Password:", type='password')
-            if password != 'engyshahbander.50495049': # Replace 'your_password' with the actual password
-                st.warning("Incorrect password. Please try again.")
-                return
+        if password != 'engyshahbander.50495049': # Replace 'your_password' with the actual password
+            st.warning("Incorrect password. Please try again.")
+            return
 
     patient_name = st.text_input("Patient Name", "")
     prescription_date = datetime.date.today().strftime("%d-%m-%Y")

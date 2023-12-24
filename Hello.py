@@ -7,7 +7,6 @@ import tempfile
 from pathlib import Path
 import os
 from fpdf import FPDF
-from streamlit_password import password_input
 
 def create_prescription(patient_name, date, day, birthday, prescription):
     image_path = 'prescription.png' # Replace this with the actual path to your prescription.png file
@@ -43,10 +42,6 @@ def create_pdf(image_file, pdf_file):
 def create_app():
     st.title('Create Prescription App')
     st.markdown("This app helps you create a prescription by filling in the details.")
-    password = password_input("Enter Password:", type='password')
-    if password != 'engyshahbander.50495049': # Replace 'your_password' with the actual password
-        st.warning("Incorrect password. Please try again.")
-        return
 
     patient_name = st.text_input("Patient Name", "")
     prescription_date = datetime.date.today().strftime("%d-%m-%Y")

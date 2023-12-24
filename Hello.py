@@ -27,6 +27,8 @@ if st.button("Login"):
     else:
         st.error('Invalid username or password')
 
+user_logged_in = False
+
 if user_logged_in:
     # Run your app's main functionality here
     st.write("Welcome, you are logged in!")

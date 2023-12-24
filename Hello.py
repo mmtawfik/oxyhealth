@@ -16,13 +16,13 @@ def hash_password(password):
     return (salt + key).hex()
 
 # Hash the password using the above function
-hashed_password = hash_password('engyshahbander.50495049')
+hashed_password = hash_password('50495049')
 
 username = st.text_input("Username", "")
 password = st.text_input("Password", type='password')
 
 if st.button("Login"):
-    if username == 'Dr.Engy Shahbander' and hash_password(password) == hashed_password:
+    if username == 'Engy' and hash_password(password) == hashed_password:
         st.session_state['user_logged_in'] = True
     else:
         st.error('Invalid username or password')

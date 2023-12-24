@@ -7,7 +7,7 @@ import tempfile
 from pathlib import Path
 import os
 from fpdf import FPDF
-from streamlit_authenticator import SessionState
+from streamlit_authenticator import Authenticator
 
 
 auth = Authenticator()

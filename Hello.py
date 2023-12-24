@@ -14,13 +14,13 @@ def hash_password(password):
     key = hashlib.pbkdf2_hmac('sha256', password.encode('utf-8'), salt, 100000)
     return (salt + key).hex()
 
-hashed_password = hash_password('fc5e038d38a57032085441e7fe7010b0')
+hashed_password = hash_password('engyshahbander')
 
 username = st.text_input("Username", "")
 password = st.text_input("Password", type='password')
 
 if st.button("Login"):
-    if username == 'Engy' and hash_password(password) == hashed_password:
+    if username == 'Engy' and password == 'engyshahbander':
         st.session_state['user_logged_in'] = True
     else:
         st.error('Invalid username or password')
@@ -30,7 +30,7 @@ user_logged_in = False
 if user_logged_in:
     # Run your app's main functionality here
     st.write("Welcome, you are logged in!")
-
+    
     def create_prescription(patient_name, date, day, birthday, prescription):
         image_path = 'prescription.png' # Replace this with the actual path to your prescription.png file
         image = Image.open(image_path)

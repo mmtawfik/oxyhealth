@@ -7,7 +7,10 @@ import tempfile
 from pathlib import Path
 import os
 from fpdf import FPDF
-import hashlib
+
+
+username = st.text_input("Username", "")
+password = st.text_input("Password", type='password')
 
 
 if st.button("Login"):

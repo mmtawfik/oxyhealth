@@ -19,13 +19,14 @@ hashed_password = hash_password('engyshahbander')
 username = st.text_input("Username", "")
 password = st.text_input("Password", type='password')
 
+user_logged_in = False
+
 if st.button("Login"):
     if username == 'Engy' and password == 'engyshahbander':
         st.session_state['user_logged_in'] = True
     else:
         st.error('Invalid username or password')
 
-user_logged_in = False
 
 if user_logged_in:
     # Run your app's main functionality here

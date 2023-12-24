@@ -7,6 +7,16 @@ import tempfile
 from pathlib import Path
 import os
 from fpdf import FPDF
+import hashlib
+
+# New function for creating the password page
+def password_page(patient_name, birthday, password):
+    hashed_password = hashlib.sha256(password.encode()).hexdigest()
+    if hashed_password == "correct_password_hash":
+        create_prescription(patient_name, date, day, birthday, prescription)
+    else:
+        st.write("Incorrect password. Please try again.")
+        password_page(patient_name, birthday, "")
 
 def create_prescription(patient_name, date, day, birthday, prescription):
     image_path = 'prescription.png' # Replace this with the actual path to your prescription.png file
@@ -43,19 +53,24 @@ def create_app():
     st.title('Create Prescription App')
     st.markdown("This app helps you create a prescription by filling in the details.")
 
-    patient_name = st.text_input("Patient Name", "")
-    prescription_date = datetime.date.today().strftime("%d-%m-%Y")
-    day = datetime.datetime.today().strftime("%A")
-    birthday = st.date_input("Patient's Birthday", datetime.date(1980, 7, 6))
-    prescription = st.text_area("Prescription")
+    option = st.radio("Choose an option:", ["Create Password", "Access Prescription"])
 
-    submit = st.button("Create Prescription")
+    if option == "Create Password":
+        patient_name = st.text_input("Patient Name", "")
+        birthday = st.date_input("Patient's Birthday", datetime.date(1980, 7, 6))
+        password = st.text_input("Password", type='password')
+        if st.button("Submit"):
+            hashed_password = hashlib.sha256(password.encode()).hexdigest()
+            if hashed_password == "correct_password_hash":
+                st.write("Password already exists.")
+            else:
+                st.write("Password created successfully.")
+    elif option == "Access Prescription":
+        patient_name = st.text_input("Patient Name", "")
+        birthday = st.date_input("Patient's Birthday", datetime.date(1980, 7, 6))
+        password = st.text_input("Password", type='password')
+        if st.button("Submit"):
+            password_page(patient_name, birthday, password)
 
-    if submit:
-        create_prescription(patient_name, prescription_date, day, str(birthday), prescription)
-        pdf_file = patient_name + '.pdf'
-        if os.path.exists(pdf_file):
-            st.download_button(label="Download Prescription", data=open(pdf_file, 'rb'), file_name=pdf_file, mime='application/pdf')
-        
 if __name__ == '__main__':
     create_app()

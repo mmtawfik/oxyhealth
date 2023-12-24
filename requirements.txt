@@ -1,7 +1,3 @@
-altair
-numpy
-pandas
-pydeck
 streamlit
 fpdf 
 streamlit-authenticator

@@ -8,7 +8,7 @@ from pathlib import Path
 import os
 from fpdf import FPDF
 import streamlit_authenticator
-
+from streamlit_authenticator import Authenticator
 auth = Authenticator()
 
 auth.login(

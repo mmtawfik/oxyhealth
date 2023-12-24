@@ -1,22 +1,23 @@
-import hashlib
-import os
-from datetime import datetime
-from PIL import Image, ImageDraw, ImageFont
-import io
 import streamlit as st
-import fpdf
+import numpy as np
+from PIL import Image, ImageDraw, ImageFont
+from io import BytesIO
+import datetime
+import tempfile
+from pathlib import Path
+import os
+from fpdf import FPDF
+import hashlib
 
 def hash_password(password):
     salt = os.urandom(32)
     key = hashlib.pbkdf2_hmac('sha256', password.encode('utf-8'), salt, 100000)
     return (salt + key).hex()
 
-hashed_password = hash_password('Engy')
+hashed_password = hash_password('fc5e038d38a57032085441e7fe7010b0')
 
 username = st.text_input("Username", "")
 password = st.text_input("Password", type='password')
-
-user_logged_in = True
 
 if st.button("Login"):
     if username == 'Engy' and hash_password(password) == hashed_password:
@@ -24,6 +25,7 @@ if st.button("Login"):
     else:
         st.error('Invalid username or password')
 
+user_logged_in = False
 
 if user_logged_in:
     # Run your app's main functionality here

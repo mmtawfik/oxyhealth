@@ -54,7 +54,7 @@ def create_app():
     submit = st.button("Create Prescription")
 
     if submit:
-        if password == "your_password_here": # Replace 'your_password_here' with the actual password
+        if password == "engyoxyhealth5049": # Replace 'your_password_here' with the actual password
             create_prescription(patient_name, prescription_date, day, str(birthday), prescription)
             pdf_file = patient_name + '.pdf'
             if os.path.exists(pdf_file):

@@ -14,14 +14,14 @@ def hash_password(password):
     key = hashlib.pbkdf2_hmac('sha256', password.encode('utf-8'), salt, 100000)
     return (salt + key).hex()
 
-hashed_password = hash_password('drengyoxyhealth')
+hashed_password = hash_password('drengyoxyhealth5049')
 
 username = st.text_input("Username", "")
 password = st.text_input("Password", type='password')
 
 
 if st.button("Login"):
-    if username == 'drengyoxyhealth' and password == 'drengyoxyhealth':
+    if username == 'drengyoxyhealth' and password == 'drengyoxyhealth5049':
             # Run your app's main functionality here
             st.write("Welcome, you are logged in!")
             

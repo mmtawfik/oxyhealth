@@ -15,7 +15,6 @@ def create_prescription(patient_name, date, day, birthday, prescription):
     draw = ImageDraw.Draw(image)
     font = ImageFont.truetype("Arial.ttf", 28)
 
-
     draw.text((220, 395), patient_name, (0, 0, 0), font=font)
     draw.text((745, 395), date, (0, 0, 0), font=font)
     draw.text((300, 455), birthday, (0, 0, 0), font=font)
@@ -49,13 +48,19 @@ def create_app():
     birthday = st.date_input("Patient's Birthday", datetime.date(1980, 7, 6))
     prescription = st.text_area("Prescription")
 
+    # Add a password input
+    password = st.text_input("Password", type='password')
+
     submit = st.button("Create Prescription")
 
     if submit:
-        create_prescription(patient_name, prescription_date, day, str(birthday), prescription)
-        pdf_file = patient_name + '.pdf'
-        if os.path.exists(pdf_file):
-            st.download_button(label="Download Prescription", data=open(pdf_file, 'rb'), file_name=pdf_file, mime='application/pdf')
-        
+        if password == "your_password_here": # Replace 'your_password_here' with the actual password
+            create_prescription(patient_name, prescription_date, day, str(birthday), prescription)
+            pdf_file = patient_name + '.pdf'
+            if os.path.exists(pdf_file):
+                st.download_button(label="Download Prescription", data=open(pdf_file, 'rb'), file_name=pdf_file, mime='application/pdf')
+        else:
+            st.error("Incorrect password. Please try again.")
+
 if __name__ == '__main__':
     create_app()

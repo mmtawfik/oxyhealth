@@ -70,8 +70,8 @@ def create_app():
     st.markdown("This app helps you create a prescription by filling in the details.")
 
     patient_name = st.text_input("Patient Name", "")
-    prescription_date = date.today().strftime("%d-%m-%Y")
-    day = date.today().strftime("%A")
+    prescription_date = datetime.date.today().strftime("%d-%m-%Y")
+    day = datetime.datetime.today().strftime("%A")
     birthday = st.date_input("Patient's Birthday", datetime.date(1980, 7, 6))
     prescription = st.text_area("Prescription")
 

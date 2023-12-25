@@ -9,6 +9,10 @@ from datetime import datetime
 # App data
 prescriptions = []
 
+
+prescription_date = datetime.today().strftime("%d-%m-%Y")
+day = datetime.today().strftime("%A")
+
 def create_prescription(patient_name, date, day, birthday, prescription):
     image_path = 'prescription.png' # Replace this with the actual path to your prescription.png file
     image = Image.open(image_path)

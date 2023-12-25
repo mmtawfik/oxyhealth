@@ -29,7 +29,7 @@ def create_prescription(patient_name, date, day, birthday, prescription):
     prescriptions.append({'name': patient_name, 'date': date, 'day': day, 'birthday': birthday, 'prescription': prescription})
 
 def display_prescriptions():
-    st.subheader('List of Prescriptions')
+    st.subheader('Review The Datials of Patient')
     for prescription in prescriptions:
         st.write(f"**Patient Name:** {prescription['name']}")
         st.write(f"**Date:** {prescription['date']}")

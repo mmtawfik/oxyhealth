@@ -53,7 +53,7 @@ def create_app():
     patient_name = st.text_input("Patient Name", "")
     prescription_date = datetime.date.today().strftime("%d-%m-%Y")
     day = datetime.datetime.today().strftime("%A")
-    birthday = st.date_input("Patient's Birthday", datetime.date(1980, 7, 6))
+    birthday = st.date_input("Patient's Birthday", datetime.date(2000, 7, 6))
     prescription = st.text_area("Prescription")
 
     # Add a password input

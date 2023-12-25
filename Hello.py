@@ -10,8 +10,6 @@ from datetime import datetime
 prescriptions = []
 
 
-prescription_date = datetime.today().strftime("%d-%m-%Y")
-day = datetime.today().strftime("%A")
 
 def create_prescription(patient_name, date, day, birthday, prescription):
     image_path = 'prescription.png' # Replace this with the actual path to your prescription.png file
@@ -71,8 +69,8 @@ def create_app():
     st.markdown("This app helps you create a prescription by filling in the details.")
 
     patient_name = st.text_input("Patient Name", "")
-    prescription_date = datetime.date.today().strftime("%d-%m-%Y")
-    day = datetime.datetime.today().strftime("%A")
+    prescription_date = datetime.today().strftime("%d-%m-%Y")
+    day = datetime.today().strftime("%A")
     birthday = st.date_input("Patient's Birthday", datetime.date(1980, 7, 6))
     prescription = st.text_area("Prescription")
 

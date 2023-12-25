@@ -8,6 +8,9 @@ from pathlib import Path
 import os
 from fpdf import FPDF
 
+
+prescriptions = []
+
 def create_prescription(patient_name, date, day, birthday, prescription):
     image_path = 'prescription.png' # Replace this with the actual path to your prescription.png file
     image = Image.open(image_path)
@@ -25,6 +28,17 @@ def create_prescription(patient_name, date, day, birthday, prescription):
 
     # Convert the image to a PDF file
     create_pdf('prescription.jpg', patient_name + '.pdf')
+    # Save the created prescription to the list
+    prescriptions.append({'name': patient_name, 'date': date, 'day': day, 'birthday': birthday, 'prescription': prescription})
+
+def display_prescriptions():
+    for prescription in prescriptions:
+        st.write(f"**Patient Name:** {prescription['name']}")
+        st.write(f"**Date:** {prescription['date']}")
+        st.write(f"**Day:** {prescription['day']}")
+        st.write(f"**Birthday:** {prescription['birthday']}")
+        st.write(f"**Prescription:** {prescription['prescription']}")
+        st.write("---")
 
 def display_image(image_data):
     image = Image.open(BytesIO(image_data))
@@ -59,6 +73,7 @@ def create_app():
             pdf_file = patient_name + '.pdf'
             if os.path.exists(pdf_file):
                 st.download_button(label="Download Prescription", data=open(pdf_file, 'rb'), file_name=pdf_file, mime='application/pdf')
+            display_prescriptions()
         else:
             st.error("Incorrect password. Please try again.")
 

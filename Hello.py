@@ -1,14 +1,11 @@
-import streamlit as st
-import numpy as np
+import os
+import datetime
 from PIL import Image, ImageDraw, ImageFont
 from io import BytesIO
-import datetime
-import tempfile
-from pathlib import Path
-import os
 from fpdf import FPDF
+import streamlit as st
 
-
+# App data
 prescriptions = []
 
 def create_prescription(patient_name, date, day, birthday, prescription):
@@ -32,6 +29,7 @@ def create_prescription(patient_name, date, day, birthday, prescription):
     prescriptions.append({'name': patient_name, 'date': date, 'day': day, 'birthday': birthday, 'prescription': prescription})
 
 def display_prescriptions():
+    st.subheader('List of Prescriptions')
     for prescription in prescriptions:
         st.write(f"**Patient Name:** {prescription['name']}")
         st.write(f"**Date:** {prescription['date']}")
@@ -39,10 +37,6 @@ def display_prescriptions():
         st.write(f"**Birthday:** {prescription['birthday']}")
         st.write(f"**Prescription:** {prescription['prescription']}")
         st.write("---")
-
-def display_image(image_data):
-    image = Image.open(BytesIO(image_data))
-    st.image(image, caption='Input Image', use_column_width=True)
 
 def create_pdf(image_file, pdf_file):
     pdf = FPDF()

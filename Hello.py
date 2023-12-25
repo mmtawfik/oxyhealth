@@ -1,9 +1,10 @@
 import os
-import datetime
-from PIL import Image, ImageDraw, ImageFont
-from io import BytesIO
-from fpdf import FPDF
 import streamlit as st
+from PIL import Image
+from io import BytesIO
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+from datetime import datetime
 
 # App data
 prescriptions = []
@@ -47,6 +48,21 @@ def create_pdf(image_file, pdf_file):
     pdf.output(pdf_file)
 
 def create_app():
+    st.set_page_config(page_title="OxyHealth Prescription App", layout="wide")
+
+    st.markdown(
+        """
+        <style>
+        .reportview-container {
+            background: url('company_logo.jpg') # Replace this with the actual path to your company_logo.jpg file
+            background-size: cover;
+            background-position: bottom right;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
     st.title('Create Prescription App')
     st.markdown("This app helps you create a prescription by filling in the details.")
 

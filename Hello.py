@@ -72,7 +72,7 @@ def create_app():
     patient_name = st.text_input("Patient Name", "")
     prescription_date = date.today().strftime("%d-%m-%Y")
     day = date.today().strftime("%A")
-    birthday = st.date_input("Patient's Birthday", datetime.date(1980, 7, 6))
+    birthday = st.date_input("Patient's Birthday", datetime.date(1980, 7, 6).date())
     prescription = st.text_area("Prescription")
 
 

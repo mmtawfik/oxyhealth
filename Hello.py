@@ -54,7 +54,7 @@ def create_app():
     prescription_date = datetime.date.today().strftime("%d-%m-%Y")
     day = datetime.datetime.today().strftime("%A")
     birthday = st.date_input("Patient's Birthday", datetime.date(2020, 1, 1), datetime.date(1940, 12, 31))
-    prescription = st.text_area("Prescription")
+    prescription = st.text_area("Prescription", style={'background-color': 'white'})
 
     # Add a password input
     password = st.text_input("Password", type='password')

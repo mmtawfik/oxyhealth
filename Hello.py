@@ -24,12 +24,19 @@ def create_prescription(patient_name, date, day, birthday, prescription):
     st.image(image, caption='Prescription', use_column_width=True)
 
     # Convert the image to a PDF file
-    create_pdf('prescription.jpg', patient_name + '.pdf')
+    pdf_file = create_pdf('prescription.jpg', patient_name + '.pdf')
     # Save the created prescription to the list
-    prescriptions.append({'name': patient_name, 'date': date, 'day': day, 'birthday': birthday, 'prescription': prescription})
+    prescriptions.append({
+        'name': patient_name,
+        'date': date,
+        'day': day,
+        'birthday': birthday,
+        'prescription': prescription,
+        'pdf_file': pdf_file
+    })
 
 def display_prescriptions():
-    st.subheader('Review The Datials of Patient')
+    st.subheader('Review The Details of Patients')
     for prescription in prescriptions:
         st.write(f"**Patient Name:** {prescription['name']}")
         st.write(f"**Date:** {prescription['date']}")
@@ -45,6 +52,7 @@ def create_pdf(image_file, pdf_file):
 
     pdf.image(image_file, x=0, y=0, w=210)
     pdf.output(pdf_file)
+    return pdf_file
 
 def create_app():
     st.title('Create Prescription App')
@@ -54,7 +62,7 @@ def create_app():
     prescription_date = datetime.date.today().strftime("%d-%m-%Y")
     day = datetime.datetime.today().strftime("%A")
     birthday = st.date_input("Patient's Birthday", datetime.date(2020, 1, 1), datetime.date(1940, 12, 31))
-    prescription = st.text_area("Prescription",height=300)
+    prescription = st.text_area("Prescription", height=300)
 
     # Add a password input
     password = st.text_input("Password", type='password')
@@ -64,7 +72,7 @@ def create_app():
     if submit:
         if password == "engyoxyhealth5049": # Replace 'your_password_here' with the actual password
             create_prescription(patient_name, prescription_date, day, str(birthday), prescription)
-            pdf_file = patient_name + '.pdf'
+            pdf_file = prescriptions[-1]['pdf_file']
             if os.path.exists(pdf_file):
                 st.download_button(label="Download Prescription", data=open(pdf_file, 'rb'), file_name=pdf_file, mime='application/pdf')
 

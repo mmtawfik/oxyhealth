@@ -49,9 +49,6 @@ def create_pdf(image_file, pdf_file):
 def create_app():
     st.title('Create Prescription App')
     st.markdown("This app helps you create a prescription by filling in the details.")
-    # Add Share Button at the end of the app
-    st.markdown("Share this prescription:", unsafe_allow_html=True)
-    st.share_button(message="Check out my generated prescription!", mail_subject="New Prescription Generated")
 
     patient_name = st.text_input("Patient Name", "")
     prescription_date = datetime.date.today().strftime("%d-%m-%Y")

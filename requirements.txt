@@ -1,4 +1,2 @@
 streamlit==0.87.0
 fpdf 
-streamlit.report_thread
-streamlit.server.server

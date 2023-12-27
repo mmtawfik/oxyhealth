@@ -29,14 +29,22 @@ def create_prescription(patient_name, date, day, birthday, prescription):
     prescriptions.append({'name': patient_name, 'date': date, 'day': day, 'birthday': birthday, 'prescription': prescription})
 
 def display_prescriptions():
-    st.subheader('Review The Datials of Patient')
+    # st.subheader('Review The Datials of Patient')
+    # for prescription in prescriptions:
+    #     st.write(f"**Patient Name:** {prescription['name']}")
+    #     st.write(f"**Date:** {prescription['date']}")
+    #     st.write(f"**Day:** {prescription['day']}")
+    #     st.write(f"**Birthday:** {prescription['birthday']}")
+    #     st.write(f"**Prescription:** {prescription['prescription']}")
+    #     st.write("---")
+    st.subheader('Review The Details of Patient')
     for prescription in prescriptions:
-        st.write(f"**Patient Name:** {prescription['name']}")
-        st.write(f"**Date:** {prescription['date']}")
-        st.write(f"**Day:** {prescription['day']}")
-        st.write(f"**Birthday:** {prescription['birthday']}")
-        st.write(f"**Prescription:** {prescription['prescription']}")
-        st.write("---")
+    st.write(f"<p style='color:red;'><strong>Patient Name:</strong></p>{prescription['name']}")
+    st.write(f"<p><strong>Date:</strong> {prescription['date']}</p>")
+    st.write(f"<p><strong>Day:</strong> {prescription['day']}</p>")
+    st.write(f"<p><strong>Birthday:</strong> {prescription['birthday']}</p>")
+    st.write(f"<p><strong>Prescription:</strong> {prescription['prescription']}</p>")
+    st.markdown("""---""", unsafe_allow_html=True)
 
 def create_pdf(image_file, pdf_file):
     pdf = FPDF()

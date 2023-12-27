@@ -49,6 +49,9 @@ def create_pdf(image_file, pdf_file):
 def create_app():
     st.title('Create Prescription App')
     st.markdown("This app helps you create a prescription by filling in the details.")
+    # Add Share Button at the end of the app
+    st.markdown("Share this prescription:", unsafe_allow_html=True)
+    st.share_button(message="Check out my generated prescription!", mail_subject="New Prescription Generated")
 
     patient_name = st.text_input("Patient Name", "")
     prescription_date = datetime.date.today().strftime("%d-%m-%Y")
@@ -67,6 +70,7 @@ def create_app():
             pdf_file = patient_name + '.pdf'
             if os.path.exists(pdf_file):
                 st.download_button(label="Download Prescription", data=open(pdf_file, 'rb'), file_name=pdf_file, mime='application/pdf')
+
             display_prescriptions()
         else:
             st.error("Incorrect password. Please try again.")

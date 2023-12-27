@@ -4,6 +4,8 @@ from PIL import Image, ImageDraw, ImageFont
 from io import BytesIO
 from fpdf import FPDF
 import streamlit as st
+from streamlit.report_thread import get_report_ctx
+from streamlit.server.server import Server
 
 # App data
 prescriptions = []
@@ -37,7 +39,8 @@ def create_prescription(patient_name, date, day, birthday, prescription):
 
 def display_prescriptions():
     st.subheader('Review The Details of Patients')
-    for prescription in prescriptions:
+    for idx, prescription in enumerate(prescriptions):
+        st.write(f"**Prescription #{idx+1}**")
         st.write(f"**Patient Name:** {prescription['name']}")
         st.write(f"**Date:** {prescription['date']}")
         st.write(f"**Day:** {prescription['day']}")
@@ -79,6 +82,19 @@ def create_app():
             display_prescriptions()
         else:
             st.error("Incorrect password. Please try again.")
+
+    # Add a disclaimer and customize the footer
+    st.markdown("Disclaimer: This app is for demonstration purposes only. Please consult a healthcare professional for accurate medical advice.")
+    ctx = get_report_ctx()
+    app = Server.get_current()._wrapped_app
+    st.sidebar.markdown(
+        f'<a href="{app.url + ctx.request.path}{"/".join(ctx.request.path.split("/")[3:])}" target="_blank">Open in New Tab</a>',
+        unsafe_allow_html=True
+    )
+    st.sidebar.markdown(
+        '<a href="https://openai.com" target="_blank"><img src="https://cdn.openai.com/logo/openai-logo-black-75px.png" alt="OpenAI" width="75"/></a>',
+        unsafe_allow_html=True
+    )
 
 if __name__ == '__main__':
     create_app()

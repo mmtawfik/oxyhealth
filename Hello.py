@@ -31,11 +31,11 @@ def create_prescription(patient_name, date, day, birthday, prescription):
 def display_prescriptions():
     st.subheader('Review The Datials of Patient')
     for prescription in prescriptions:
-        st.write(f"**Patient Name:** {prescription['name']}")
-        st.write(f"**Date:** {prescription['date']}")
-        st.write(f"**Day:** {prescription['day']}")
-        st.write(f"**Birthday:** {prescription['birthday']}")
-        st.write(f"**Prescription:** {prescription['prescription']}")
+        st.write(f"**Patient Name:** {prescription :red['name']}")
+        st.write(f"**Date:** {prescription :red['date']}")
+        st.write(f"**Day:** {prescription :red['day']}")
+        st.write(f"**Birthday:** {prescription :red['birthday']}")
+        st.write(f"**Prescription:** {prescription :red['prescription']}")
         st.write("---")
 
 def create_pdf(image_file, pdf_file):

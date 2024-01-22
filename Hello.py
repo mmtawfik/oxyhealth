@@ -75,7 +75,7 @@ def create_app():
             if include_birthday:
                 birthday = st.date_input("Patient's Birthday", datetime.date(2020, 1, 1), datetime.date(1940, 12, 31))
             else:
-                birthday = st.text_input("--/--/----")
+                birthday = st.draw("--/--/----")
             create_prescription(patient_name, prescription_date, day, birthday, prescription)
             pdf_file = prescriptions[-1]['pdf_file']
             if os.path.exists(pdf_file):

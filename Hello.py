@@ -17,7 +17,8 @@ def create_prescription(patient_name, date, day, birthday, prescription):
 
     draw.text((220, 395), patient_name, (0, 0, 0), font=font)
     draw.text((745, 395), date, (0, 0, 0), font=font)
-    draw.text((300, 455), birthday, (0, 0, 0), font=font)
+    if birthday:
+        draw.text((300, 455), str(birthday), (0, 0, 0), font=font)
     draw.text((120, 520), prescription, (0, 0, 0), font=font)
 
     image.save('prescription.jpg', format='JPEG') # Save as JPEG format
@@ -34,7 +35,7 @@ def create_prescription(patient_name, date, day, birthday, prescription):
         'prescription': prescription,
         'pdf_file': pdf_file
     })
-
+    
 def display_prescriptions():
     st.subheader('Review The Details of Patients')
     for prescription in prescriptions:
@@ -61,7 +62,7 @@ def create_app():
     patient_name = st.text_input("Patient Name", "")
     prescription_date = datetime.date.today().strftime("%d-%m-%Y")
     day = datetime.datetime.today().strftime("%A")
-    birthday = st.date_input("Patient's Birthday", datetime.date(2020, 1, 1), datetime.date(1940, 12, 31))
+    include_birthday = st.checkbox("Include Patient's Birthday")
     prescription = st.text_area("Prescription", height=300)
 
     # Add a password input
@@ -71,7 +72,11 @@ def create_app():
 
     if submit:
         if password == "engyoxyhealth5049": # Replace 'your_password_here' with the actual password
-            create_prescription(patient_name, prescription_date, day, str(birthday), prescription)
+            if include_birthday:
+                birthday = st.date_input("Patient's Birthday", datetime.date(2020, 1, 1), datetime.date(1940, 12, 31))
+            else:
+                birthday = None
+            create_prescription(patient_name, prescription_date, day, birthday, prescription)
             pdf_file = prescriptions[-1]['pdf_file']
             if os.path.exists(pdf_file):
                 st.download_button(label="Download Prescription", data=open(pdf_file, 'rb'), file_name=pdf_file, mime='application/pdf')
@@ -79,6 +84,6 @@ def create_app():
             display_prescriptions()
         else:
             st.error("Incorrect password. Please try again.")
-
+            
 if __name__ == '__main__':
     create_app()

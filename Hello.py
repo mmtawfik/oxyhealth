@@ -64,10 +64,10 @@ def create_app():
     day = datetime.datetime.today().strftime("%A")
     include_birthday = st.checkbox("Include Patient's Birthday")
     if include_birthday:
-                birthday = st.date_input("Patient's Birthday", datetime.date(2020, 1, 1), datetime.date(1940, 12, 31))
-                birthday = birthday.strftime("%d-%m-%Y") if birthday else None
-            else:
-                birthday = None
+            birthday = st.date_input("Patient's Birthday", datetime.date(2020, 1, 1), datetime.date(1940, 12, 31))
+            birthday = birthday.strftime("%d-%m-%Y") if birthday else None
+        else:
+            birthday = None
     prescription = st.text_area("Prescription", height=300)
 
     # Add a password input

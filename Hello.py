@@ -74,8 +74,9 @@ def create_app():
         if password == "engyoxyhealth5049": # Replace 'your_password_here' with the actual password
             if include_birthday:
                 birthday = st.date_input("Patient's Birthday", datetime.date(2020, 1, 1), datetime.date(1940, 12, 31))
+                birthday = birthday.strftime("%d-%m-%Y") if birthday else None
             else:
-                birthday = st.draw("--/--/----")
+                birthday = None
             create_prescription(patient_name, prescription_date, day, birthday, prescription)
             pdf_file = prescriptions[-1]['pdf_file']
             if os.path.exists(pdf_file):

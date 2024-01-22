@@ -63,6 +63,11 @@ def create_app():
     prescription_date = datetime.date.today().strftime("%d-%m-%Y")
     day = datetime.datetime.today().strftime("%A")
     include_birthday = st.checkbox("Include Patient's Birthday")
+    if include_birthday:
+                birthday = st.date_input("Patient's Birthday", datetime.date(2020, 1, 1), datetime.date(1940, 12, 31))
+                birthday = birthday.strftime("%d-%m-%Y") if birthday else None
+            else:
+                birthday = None
     prescription = st.text_area("Prescription", height=300)
 
     # Add a password input
@@ -72,11 +77,6 @@ def create_app():
 
     if submit:
         if password == "engyoxyhealth5049": # Replace 'your_password_here' with the actual password
-            if include_birthday:
-                birthday = st.date_input("Patient's Birthday", datetime.date(2020, 1, 1), datetime.date(1940, 12, 31))
-                birthday = birthday.strftime("%d-%m-%Y") if birthday else None
-            else:
-                birthday = None
             create_prescription(patient_name, prescription_date, day, birthday, prescription)
             pdf_file = prescriptions[-1]['pdf_file']
             if os.path.exists(pdf_file):
